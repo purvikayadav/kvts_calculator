@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculator</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background: #7FFFD4;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            transition: background 1.5s ease;
+
+        }
+
+
+        /* Heading */
+
+        h1 {
+
+            margin-top: 25px;
+
+            margin-bottom: 20px;
+
+            font-size: 32px;
+
+            color: white;
+
+            text-align: center;
+
+            text-decoration: underline;
+
+        }
+
+
+        /* Calculator */
+
+        .calculator {
+
+            background-color: #222;
+
+            width: 260px;
+
+            padding: 12px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+
+        }
+
+
+        /* Display */
+
+        #display {
+
+            width: 100%;
+
+            height: 50px;
+
+            margin-bottom: 10px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background-color: white;
+
+            text-align: right;
+
+            font-size: 24px;
+
+            padding: 8px;
+
+        }
+
+
+        /* Buttons */
+
+        .buttons {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 6px;
+
+        }
+
+
+        button {
+
+            height: 45px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            background-color: #eee;
+
+            transition: 0.2s;
+
+        }
+
+
+        button:hover {
+
+            background-color: #ccc;
+
+            transform: scale(1.05);
+
+        }
+
+
+        .operator {
+
+            background-color: #ff9500;
+
+            color: white;
+
+        }
+
+
+        .operator:hover {
+
+            background-color: #e68900;
+
+        }
+
+
+        .clear {
+
+            background-color: #ff3b30;
+
+            color: white;
+
+        }
+
+
+        .equal {
+
+            background-color: #34c759;
+
+            color: white;
+
+        }
+
+
+        /* Thank You Message */
+
+        .thank-you {
+
+            display: none;
+
+            margin-top: 25px;
+
+            background-color: white;
+
+            padding: 12px 25px;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #333;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+            animation: slowBounce 2.5s ease-in-out infinite;
+
+        }
+
+
+        /* Slow Bouncing */
+
+        @keyframes slowBounce {
+
+            0% {
+
+                transform: translateY(0);
+
+            }
+
+            50% {
+
+                transform: translateY(-12px);
+
+            }
+
+            100% {
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+        /* Amazing Background */
+
+        body.result-mode {
+
+            background:
+
+                radial-gradient(
+                    circle at 20% 20%,
+                    #ff00cc 0%,
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 80% 30%,
+                    #00ffff 0%,
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 50% 90%,
+                    #7b2cff 0%,
+                    transparent 40%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #05002e,
+                    #16004d,
+                    #001f3f
+                );
+
+            background-size: 200% 200%;
+
+            animation: amazingBackground 8s ease infinite;
+
+        }
+
+
+        /* Moving Background */
+
+        @keyframes amazingBackground {
+
+            0% {
+
+                background-position: 0% 50%;
+
+            }
+
+            50% {
+
+                background-position: 100% 50%;
+
+            }
+
+            100% {
+
+                background-position: 0% 50%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h1>
+
+        KRISHNA VIKASH TECHNO SCHOOL, DURG
+
+        <br>
+
+        CALCULATOR
+
+    </h1>
+
+
+    <div class="calculator">
+
+        <input
+            type="text"
+            id="display"
+            value="0"
+            readonly
+        >
+
+
+        <div class="buttons">
+
+
+            <button
+                class="clear"
+                onclick="clearDisplay()">
+                C
+            </button>
+
+
+            <button
+                onclick="deleteNumber()">
+                ⌫
+            </button>
+
+
+            <button
+                class="operator"
+                onclick="addOperator('%')">
+                %
+            </button>
+
+
+            <button
+                class="operator"
+                onclick="addOperator('/')">
+                ÷
+            </button>
+
+
+            <button
+                onclick="addNumber('7')">
+                7
+            </button>
+
+
+            <button
+                onclick="addNumber('8')">
+                8
+            </button>
+
+
+            <button
+                onclick="addNumber('9')">
+                9
+            </button>
+
+
+            <button
+                class="operator"
+                onclick="addOperator('*')">
+                ×
+            </button>
+
+
+            <button
+                onclick="addNumber('4')">
+                4
+            </button>
+
+
+            <button
+                onclick="addNumber('5')">
+                5
+            </button>
+
+
+            <button
+                onclick="addNumber('6')">
+                6
+            </button>
+
+
+            <button
+                class="operator"
+                onclick="addOperator('-')">
+                −
+            </button>
+
+
+            <button
+                onclick="addNumber('1')">
+                1
+            </button>
+
+
+            <button
+                onclick="addNumber('2')">
+                2
+            </button>
+
+
+            <button
+                onclick="addNumber('3')">
+                3
+            </button>
+
+
+            <button
+                class="operator"
+                onclick="addOperator('+')">
+                +
+            </button>
+
+
+            <button
+                onclick="addNumber('0')">
+                0
+            </button>
+
+
+            <button
+                onclick="addNumber('.')">
+                .
+            </button>
+
+
+            <button
+                class="equal"
+                onclick="calculate()">
+                =
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- Thank You Message -->
+
+    <div
+        class="thank-you"
+        id="thankYou">
+
+        😊 Thank You for Using My Calculator!
+
+    </div>
+
+
+    <script>
+
+        let display =
+            document.getElementById("display");
+
+        let thankYou =
+            document.getElementById("thankYou");
+
+        let currentValue = "";
+
+
+        // Add number
+
+        function addNumber(number) {
+
+            if (currentValue === "0") {
+
+                currentValue = "";
+
+            }
+
+            currentValue += number;
+
+            display.value = currentValue;
+
+            thankYou.style.display = "none";
+
+            document.body.classList.remove("result-mode");
+
+        }
+
+
+        // Add operator
+
+        function addOperator(operator) {
+
+            if (currentValue === "") {
+
+                return;
+
+            }
+
+
+            let lastCharacter =
+                currentValue.charAt(
+                    currentValue.length - 1
+                );
+
+
+            if ("+-*/%".includes(lastCharacter)) {
+
+                currentValue =
+                    currentValue.slice(0, -1) +
+                    operator;
+
+            }
+
+            else {
+
+                currentValue += operator;
+
+            }
+
+
+            display.value = currentValue;
+
+            thankYou.style.display = "none";
+
+            document.body.classList.remove("result-mode");
+
+        }
+
+
+        // Calculate
+
+        function calculate() {
+
+            if (currentValue === "") {
+
+                return;
+
+            }
+
+
+            try {
+
+                let result =
+                    Function(
+                        "return " +
+                        currentValue
+                    )();
+
+
+                if (!isFinite(result)) {
+
+                    display.value = "Error";
+
+                    currentValue = "";
+
+                    thankYou.style.display = "none";
+
+                    document.body.classList.remove(
+                        "result-mode"
+                    );
+
+                    return;
+
+                }
+
+
+                currentValue = String(result);
+
+                display.value = currentValue;
+
+
+                // Show Thank You
+
+                thankYou.style.display = "block";
+
+
+                // Change Background
+
+                document.body.classList.add(
+                    "result-mode"
+                );
+
+            }
+
+
+            catch {
+
+                display.value = "Error";
+
+                currentValue = "";
+
+                thankYou.style.display = "none";
+
+                document.body.classList.remove(
+                    "result-mode"
+                );
+
+            }
+
+        }
+
+
+        // Clear
+
+        function clearDisplay() {
+
+            currentValue = "";
+
+            display.value = "0";
+
+            thankYou.style.display = "none";
+
+            document.body.classList.remove(
+                "result-mode"
+            );
+
+        }
+
+
+        // Delete
+
+        function deleteNumber() {
+
+            currentValue =
+                currentValue.slice(0, -1);
+
+            display.value =
+                currentValue || "0";
+
+            thankYou.style.display = "none";
+
+            document.body.classList.remove(
+                "result-mode"
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
